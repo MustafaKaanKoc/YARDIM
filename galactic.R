@@ -94,3 +94,34 @@ head(myData)
 #  Base fares can vary by species, considering differences in their average willingness to pay, as shown by MySpeciesAverage. For example, Jovians may value shorter trips and benefit from reduced fares for brief journeys.
 #Rationale:
 #  This strategy balances revenue optimization with customer satisfaction by leveraging trends from the data. It aligns with the positive and negative relationships identified in the linear model (e.g., duration, destination, and travel class) while remaining competitive and adaptive to intergalactic preferences.
+
+
+
+# Analyze the coefficients of the linear model
+summary(myModel)
+
+# Extract coefficients for interpretation
+coefficients <- myModel$coefficients
+print(coefficients)
+
+# Visualize relationships for key predictors
+library(ggplot2)
+
+# Price vs. Duration
+ggplot(myData, aes(x = Duration, y = Price)) +
+  geom_point(aes(color = TravelClass)) +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(title = "Price vs. Duration of Travel", x = "Duration (days)", y = "Price")
+
+# Price vs. Promotion Tokens
+ggplot(myData, aes(x = PromotionTokens, y = Price)) +
+  geom_boxplot(aes(fill = TravelClass)) +
+  labs(title = "Price vs. Promotional Tokens", x = "Promotion Tokens", y = "Price")
+
+# Price vs. DestinationPlace
+ggplot(myData, aes(x = DestinationPlace, y = Price)) +
+  geom_boxplot(aes(fill = Species)) +
+  labs(title = "Price Distribution by Destination Place", x = "Destination", y = "Price")
+
+
+
